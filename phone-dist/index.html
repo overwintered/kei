@@ -1,0 +1,467 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://mbvxgvrbtwfkzgucpvau.supabase.co wss://mbvxgvrbtwfkzgucpvau.supabase.co" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Kei" />
+  <meta name="theme-color" content="#050505" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <title>UNIT 01: KE1</title>
+  <link rel="stylesheet" href="style.css?v=murz3wro" />
+  <link rel="stylesheet" href="phone.css?v=murz3wro" />
+</head>
+<body data-mode="collapsed" data-stage="1" data-emotion="idle">
+
+  <!-- ============================== COLLAPSED: just his head ============================== -->
+  <div id="collapsed" class="view">
+    <div id="bubble" class="hit" hidden><span class="who"></span><span class="text"></span></div>
+    <div id="head-wrap">
+      <div id="head" class="figure-crop"></div>
+      <div id="mini-tag" class="hit"><i class="ears-icon"></i><span class="label"></span></div>
+    </div>
+  </div>
+
+  <!-- ============================== EXPANDED: the full panel ============================== -->
+  <div id="expanded" class="view">
+    <section id="panel" class="hit">
+      <div class="scan"></div>
+      <header id="titlebar">
+        <div class="hex">01</div>
+        <div class="titles">
+          <div class="eva big" id="title-name">UNIT 01: KE1</div>
+          <div class="mono tiny" id="title-status">UNIT 01: KE1 // STATUS NOMINAL</div>
+        </div>
+        <button id="btn-collapse" class="icon-btn" title="collapse">_</button>
+      </header>
+
+      <div id="statusbar" class="mono tiny">
+        <span><i class="ears-icon"></i> <span class="lbl">EARS: </span><b id="sb-ears">NEUTRAL</b></span>
+        <span><span class="lbl">CHARGE </span><b id="sb-charge" class="cells"></b></span>
+        <span id="sb-streak"></span>
+        <span id="sb-music" hidden><span class="eq"><i></i><i></i><i></i></span><span class="mq"><span class="mq-t"></span></span></span>
+        <button type="button" id="sb-focus" class="sb-btn" title="focus mode">FOCUS</button>
+        <button type="button" id="sb-migraine" class="sb-btn on" title="migraine: update or end" hidden></button>
+        <span id="sb-clock"></span>
+      </div>
+
+      <div id="mad-banner" class="mono" hidden></div>
+
+      <nav id="tabs" class="mono">
+        <button data-tab="tasks" class="active">TASKS</button>
+        <button data-tab="schedule">SCHED</button>
+        <button data-tab="talk">TALK</button>
+        <button data-tab="care">CARE</button>
+        <button data-tab="mem">MEM</button>
+        <button data-tab="sys">SYS</button>
+      </nav>
+
+      <main>
+        <!-- TASKS -->
+        <div class="tab" data-tab="tasks">
+          <form id="quick-add" class="row">
+            <input id="qa-title" placeholder="> new task (try: essay by fri at 5pm)" autocomplete="off" />
+            <select id="qa-group" title="group"></select>
+            <button type="button" class="chip" id="qa-more" title="add with all the details">+</button>
+            <button class="chip solid">ADD</button>
+          </form>
+          <div class="row between">
+            <div class="row" id="plan-filters">
+              <button class="chip" data-filter="today">TODAY</button>
+              <button class="chip" data-filter="upcoming">UPCOMING</button>
+              <button class="chip" data-filter="inbox">INBOX</button>
+              <button class="chip" data-filter="all">ALL</button>
+              <button class="chip" data-filter="done">DONE</button>
+            </div>
+            <span class="mono tiny muted" id="task-count"></span>
+          </div>
+          <button id="btn-pick" class="chip wide"><span class="hexdot"></span> <span id="pick-label">UNIT 01: KE1'S PICK</span></button>
+          <ul id="plan-list" class="log"></ul>
+        </div>
+
+        <!-- SCHEDULE -->
+        <div class="tab" data-tab="schedule" hidden>
+          <div class="row between">
+            <button class="icon-btn" id="day-prev">&lt;</button>
+            <div class="eva mid" id="day-label">TODAY</div>
+            <button class="icon-btn" id="day-next">&gt;</button>
+            <button class="chip solid" id="btn-add-block">+ ADD</button>
+          </div>
+          <div id="day-strip" class="row wrap"></div>
+          <div id="timeline"></div>
+        </div>
+
+        <!-- TALK -->
+        <div class="tab" data-tab="talk" hidden>
+          <div id="term" class="mono"></div>
+          <div id="quick" class="row wrap">
+            <button class="chip" data-quick="i'm tired">i'm tired</button>
+            <button class="chip" data-quick="i finished!">i finished!</button>
+            <button class="chip" data-quick="help me start">help me start</button>
+            <button class="chip" data-quick="how are you?">how are you?</button>
+            <button class="chip" data-quick="quiz me">quiz me</button>
+            <button class="chip" data-quick="focus 25m">focus 25m</button>
+          </div>
+          <form id="talk-form" class="row">
+            <span class="prompt mono">&gt;</span>
+            <input id="talk-input" class="mono" autocomplete="off" placeholder="say something" />
+          </form>
+        </div>
+
+        <!-- CARE -->
+        <div class="tab" data-tab="care" hidden>
+          <div class="care-grid">
+            <div class="card">
+              <div class="mono tiny muted">CHARGE</div>
+              <div id="care-charge" class="battery"><b></b></div>
+              <div class="mono tiny muted">charged by finishing real tasks, not clicks.</div>
+            </div>
+            <div class="card">
+              <div class="mono tiny muted">STREAK</div>
+              <div class="eva big" id="care-streak">0</div>
+              <div class="mono tiny muted" id="care-best"></div>
+            </div>
+            <div class="card span2" id="trust-card" hidden>
+              <div class="mono tiny muted">TRUST</div>
+              <div id="trust-meter"><b></b></div>
+              <div class="mono tiny muted" id="trust-stage"></div>
+            </div>
+            <div class="card span2">
+              <div class="mono tiny muted">GIFTS // unlocked by streaks</div>
+              <div id="gift-list"></div>
+            </div>
+            <div class="card span2">
+              <div class="mono tiny muted">MEMORY SECTORS // <span id="frag-count"></span></div>
+              <div id="frag-list"></div>
+            </div>
+            <div class="card span2 mono tiny muted">click his head for headpats. he will pretend to hate it.</div>
+          </div>
+        </div>
+
+        <!-- MEMORY -->
+        <div class="tab" data-tab="mem" hidden>
+          <div class="row" id="mem-sub"></div>
+          <div id="mem-body"></div>
+        </div>
+
+        <!-- SYS CONFIG -->
+        <div class="tab" data-tab="sys" hidden>
+          <form id="sys-form" class="mono">
+            <h3 class="eva">SYS CONFIG</h3>
+            <fieldset>
+              <legend>UNIT</legend>
+              <div id="unit-info" class="tiny"></div>
+            </fieldset>
+            <fieldset>
+              <legend>DAY CYCLE</legend>
+              <label>WAKE <input name="wakeTime" type="time" /></label>
+              <label>WIND-DOWN <input name="windDownTime" type="time" /></label>
+              <label>BEDTIME <input name="bedTime" type="time" /></label>
+              <label>QUIET FROM <input name="quietStart" type="time" /></label>
+              <label>QUIET UNTIL <input name="quietEnd" type="time" /></label>
+            </fieldset>
+            <fieldset>
+              <legend>BEHAVIOUR</legend>
+              <label>INTENSITY <input name="intensity" type="range" min="0" max="100" /> <span id="intensity-val"></span></label>
+              <div class="tiny muted">how hard he pushes on deadlines and how fast alerts escalate.</div>
+              <label>I TAKE <select name="pace">
+                <option value="1">the usual time</option>
+                <option value="1.25">a little longer</option>
+                <option value="1.5">a bit longer (1.5x)</option>
+                <option value="2">a lot longer (2x)</option>
+              </select></label>
+              <div class="tiny muted">he pads his time estimates by this much.</div>
+              <label>REMIND BEFORE DUE (MIN) <input name="reminderLead" type="number" min="0" max="240" /></label>
+              <label class="check"><input name="sleepLock" type="checkbox" /> SLEEP LOCK</label>
+              <label>OVERRIDE <select name="sleepOverride"><option value="hold">hold button 3s</option><option value="tap">single tap</option></select></label>
+            </fieldset>
+            <fieldset>
+              <legend>SIGNALS</legend>
+              <label class="check"><input name="notifications" type="checkbox" /> SYSTEM NOTIFICATIONS</label>
+              <label class="check"><input name="sound" type="checkbox" /> SOUND</label>
+              <label class="check"><input name="launchAtLogin" type="checkbox" /> LAUNCH AT LOGIN</label>
+              <div class="tiny muted" id="login-note"></div>
+            </fieldset>
+            <fieldset data-desktop>
+              <legend>SCREEN GLANCES</legend>
+              <div class="tiny muted">every 10 minutes (every 5 while you're meant to be working) he looks at your screen and reacts. mistral only, never saved, never while a password manager or bank page is in front.</div>
+              <label class="check"><input type="checkbox" id="glance-on" /> LET HIM LOOK</label>
+              <div class="row"><button type="button" class="chip" id="glance-pause">PAUSE 1 HOUR</button><button type="button" class="chip" id="glance-now">LOOK NOW</button><button type="button" class="chip" id="glance-perm" hidden>ALLOW BROWSER CHECK</button></div>
+              <div class="tiny muted" id="glance-status"></div>
+            </fieldset>
+            <fieldset>
+              <legend>FILES</legend>
+              <div id="sys-files"></div>
+            </fieldset>
+            <fieldset data-desktop>
+              <legend>TICKTICK + STRUCTURED</legend>
+              <div class="tiny muted">your tasks come from ticktick and your schedule from structured. kei shows them, notices when you finish (charge) or delete (nothing), and checking something off here sends it back. once both are connected, kei's old items are backed up and cleared.</div>
+              <div id="tt-app-row">
+                <label>TICKTICK CLIENT ID <input type="text" id="tt-client-id" autocomplete="off" spellcheck="false" /></label>
+                <label>TICKTICK CLIENT SECRET <input type="password" id="tt-client-secret" autocomplete="off" /></label>
+                <div class="row"><button type="button" class="chip" id="tt-save-app">SAVE APP</button></div>
+              </div>
+              <div class="row"><button type="button" class="chip" id="tt-connect">CONNECT TICKTICK</button><button type="button" class="chip" id="st-connect">CONNECT STRUCTURED</button></div>
+              <div class="row"><button type="button" class="chip" id="ext-sync">SYNC NOW</button><button type="button" class="chip" id="tt-disconnect">DISCONNECT TICKTICK</button><button type="button" class="chip" id="st-disconnect">DISCONNECT STRUCTURED</button></div>
+              <div class="tiny muted" id="ext-status"></div>
+            </fieldset>
+            <fieldset data-desktop>
+              <legend>TALK ENGINE</legend>
+              <label>ENGINE <select name="chatEngine">
+                <option value="auto">auto (claude, else mistral, else gemini, else scripted)</option>
+                <option value="mistral">mistral</option>
+                <option value="gemini">google gemini</option>
+                <option value="claude">claude</option>
+                <option value="scripted">scripted (free, offline)</option>
+              </select></label>
+              <div class="tiny muted" id="usage-meter"></div>
+              <div class="tiny muted">MISTRAL // console.mistral.ai. large for chat, small for background jobs. gemini steps in if it fails.</div>
+              <label>MISTRAL KEY <input name="mistralKey" type="password" placeholder="paste key (blank keeps current)" autocomplete="off" /></label>
+              <div class="row"><button type="button" class="chip" data-test="mistral">TEST MISTRAL</button><button type="button" class="chip" data-forget="mistral">FORGET</button></div>
+              <div class="tiny muted">GEMINI // free key from aistudio.google.com</div>
+              <label>GEMINI KEY <input name="geminiKey" type="password" placeholder="AIza... (blank keeps current)" autocomplete="off" /></label>
+              <div class="row"><button type="button" class="chip" data-test="gemini">TEST GEMINI</button><button type="button" class="chip" data-forget="gemini">FORGET</button></div>
+              <div class="tiny muted">CLAUDE // console.anthropic.com</div>
+              <label>CLAUDE MODEL <select name="model">
+                <option value="claude-opus-5-5">opus 5.5 (best voice, ~1-2c/msg)</option>
+                <option value="claude-sonnet-5-5">sonnet 5.5 (half the price)</option>
+                <option value="claude-haiku-4-5">haiku 4.5 (cheapest)</option>
+              </select></label>
+              <label>CLAUDE KEY <input name="apiKey" type="password" placeholder="sk-ant-... (blank keeps current)" autocomplete="off" /></label>
+              <div class="row"><button type="button" class="chip" data-test="claude">TEST CLAUDE</button><button type="button" class="chip" data-forget="claude">FORGET</button></div>
+              <div class="tiny muted" id="key-status"></div>
+            </fieldset>
+            <fieldset>
+              <legend>CLOUD MEMORY // SUPABASE</legend>
+              <div class="tiny muted" id="cloud-status"></div>
+              <div id="cloud-fields">
+                <label>PROJECT URL <input name="cloudUrl" placeholder="https://xxxx.supabase.co" autocomplete="off" /></label>
+                <label>ANON KEY <input name="cloudKey" autocomplete="off" /></label>
+                <label>EMAIL <input name="cloudEmail" type="email" autocomplete="off" /></label>
+                <label>PASSWORD <input name="cloudPass" type="password" autocomplete="off" /></label>
+                <div class="row">
+                  <button type="button" class="chip" id="cloud-signin">SIGN IN</button>
+                  <button type="button" class="chip" id="cloud-signup">CREATE ACCOUNT</button>
+                </div>
+              </div>
+              <div class="row"><button type="button" class="chip" id="cloud-sync">SYNC NOW</button><button type="button" class="chip" id="cloud-unlink">UNLINK</button></div>
+            </fieldset>
+            <fieldset>
+              <legend>MEMORY</legend>
+              <div class="tiny muted">so he never gets wiped again.</div>
+              <div class="row">
+                <button type="button" class="chip" id="mem-export">EXPORT BACKUP</button>
+                <button type="button" class="chip" id="mem-import">RESTORE</button>
+                <button type="button" class="chip" id="win-reset">RESET POSITION</button>
+              </div>
+            </fieldset>
+            <fieldset id="diagnostics" hidden>
+              <legend>DIAGNOSTICS</legend>
+              <div class="row wrap">
+                <button type="button" class="chip" data-debug="trust">+25 TRUST</button>
+                <button type="button" class="chip" data-debug="alert">TEST ALERT</button>
+                <button type="button" class="chip" data-debug="brief">MORNING BRIEF</button>
+                <button type="button" class="chip" data-debug="summary">DAY SUMMARY</button>
+                <button type="button" class="chip" data-debug="sleep">PREVIEW SLEEP</button>
+                <button type="button" class="chip" data-debug="streak">+1 STREAK</button>
+                <button type="button" class="chip" data-debug="drain">DRAIN CHARGE</button>
+                <button type="button" class="chip" data-debug="charge">+40 CHARGE</button>
+                <button type="button" class="chip" data-debug="audit">TEXT AUDIT</button>
+              </div>
+              <div class="tiny muted" id="diag"></div>
+            </fieldset>
+            <button class="chip solid">SAVE CONFIG</button>
+          </form>
+        </div>
+      </main>
+
+      <!-- overlays (inside the panel) -->
+      <div id="alert" class="overlay" hidden>
+        <div class="stripes top"></div>
+        <div class="alert-body">
+          <div class="eva huge blink">WARNING</div>
+          <div class="mono tiny" id="alert-code"></div>
+          <div class="alert-text" id="alert-text"></div>
+          <div class="alert-task mono" id="alert-task"></div>
+          <div class="row center">
+            <button class="chip solid green" id="alert-done">DONE</button>
+            <button class="chip" id="alert-snooze">SNOOZE 10M</button>
+            <button class="chip red-line" id="alert-fail">CAN'T MAKE IT</button>
+          </div>
+        </div>
+        <div class="stripes bottom"></div>
+      </div>
+
+      <div id="sleep-overlay" class="overlay" hidden>
+        <div class="eva huge" id="sleep-title">GO TO SLEEP.</div>
+        <div class="mono" id="sleep-sub"></div>
+        <div class="eva huge" id="sleep-count" hidden></div>
+        <div class="row center" id="sleep-buttons">
+          <button class="chip solid" id="sleep-ok">fine. goodnight.</button>
+          <button class="chip" id="sleep-more">five more minutes</button>
+        </div>
+        <button class="hold" id="sleep-override"><b></b><span>HOLD TO OVERRIDE</span></button>
+      </div>
+
+      <div id="toast" class="mono" hidden><span class="msg"></span><button type="button" class="chip" id="toast-undo">UNDO</button></div>
+
+      <div id="editor" class="overlay" hidden>
+        <form id="ed-form" class="card-sheet mono">
+          <div class="row between"><span class="tiny muted" id="ed-code"></span><button type="button" class="icon-btn" id="ed-close" title="close">x</button></div>
+          <input name="title" class="ed-title" placeholder="title" autocomplete="off" />
+          <label>GROUP <select name="group"></select></label>
+          <label>WHERE <input name="where" placeholder="room, building, link" autocomplete="off" /></label>
+          <div class="ed-sec">WHEN</div>
+          <div class="row wrap">
+            <label id="ed-date-label">DATE <input type="date" name="date" /></label>
+            <label>START <input type="time" name="start" /></label>
+            <label>MIN <input type="number" name="duration" min="5" max="720" step="5" /></label>
+          </div>
+          <label id="ed-due-row">DUE <input type="datetime-local" name="due" /></label>
+          <label>ESTIMATE (MIN) <input type="number" name="estimate" min="5" max="1200" step="5" /></label>
+          <div class="tiny muted" id="ed-estimate-hint"></div>
+          <label id="ed-duetime-row">DUE AT, EACH TIME <input type="time" name="dueTime" /></label>
+          <div class="ed-sec">REPEAT</div>
+          <label>REPEATS <select name="freq">
+            <option value="">never</option><option value="daily">every day</option><option value="weekdays">weekdays</option>
+            <option value="weekly">weekly</option><option value="biweekly">every 2 weeks</option><option value="monthly">monthly</option><option value="dates">on set dates</option>
+          </select></label>
+          <div id="ed-days" class="row wrap"></div>
+          <label id="ed-end-row">UNTIL <input type="date" name="end" /></label>
+          <label id="ed-dates-row">DATES <input name="dates" placeholder="2026-10-13, 2026-10-27" autocomplete="off" /></label>
+          <label id="ed-skip-row">SKIP <input name="skip" placeholder="dates with no occurrence" autocomplete="off" /></label>
+          <div id="ed-occ" class="ed-occ">
+            <div class="ed-sec">THIS DAY ONLY</div>
+            <input name="occLabel" placeholder="label, e.g. test 1 (15%)" autocomplete="off" />
+            <input name="occNote" placeholder="note, e.g. guest: alexis brooks (testable)" autocomplete="off" />
+          </div>
+          <div class="ed-sec">BEHAVIOUR</div>
+          <div class="row wrap">
+            <label class="check"><input type="checkbox" name="fixed" /> FIXED (alert 10 min before)</label>
+            <label class="check"><input type="checkbox" name="optional" /> OPTIONAL</label>
+            <label class="check"><input type="checkbox" name="big" /> LARGE</label>
+          </div>
+          <div class="ed-sec">LOOK</div>
+          <div class="row wrap" id="ed-icons"></div>
+          <div class="row wrap" id="ed-colors"></div>
+          <div class="ed-sec">NOTES</div>
+          <textarea name="notes" rows="3"></textarea>
+          <div class="ed-sec">SUBTASKS</div>
+          <ul id="ed-subs" class="subs"></ul>
+          <div class="row"><input id="ed-sub-new" placeholder="+ subtask" autocomplete="off" /><button type="button" class="chip" id="ed-sub-add">ADD</button></div>
+          <div class="ed-sec">LOG</div>
+          <div id="ed-comments"></div>
+          <div class="row"><input id="ed-comment" placeholder="> add a note to the log" autocomplete="off" /><button type="button" class="chip" id="ed-comment-add">POST</button></div>
+          <div id="ed-scope" class="row wrap ed-scope" hidden>
+            <span class="tiny">APPLY TO:</span>
+            <button type="button" class="chip" data-scope="this">THIS ONE</button>
+            <button type="button" class="chip" data-scope="future">THIS + FUTURE</button>
+            <button type="button" class="chip" data-scope="all">ALL</button>
+            <button type="button" class="link tiny" data-scope="cancel">cancel</button>
+          </div>
+          <div class="row between ed-actions">
+            <button type="button" class="chip green-line" id="ed-done">DONE</button>
+            <button type="button" class="chip" id="ed-focus">FOCUS</button>
+            <button type="button" class="chip red-line" id="ed-fail" title="you didn't make it; tell him">FAILED</button>
+            <button type="button" class="chip" id="ed-skip">SKIP THIS DAY</button>
+            <button type="button" class="chip" id="ed-delete">DELETE</button>
+            <button class="chip solid">SAVE</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="migraine" class="overlay" hidden>
+        <form id="mg-form" class="card-sheet mono">
+          <div class="row between"><span class="eva big">MIGRAINE LOG</span><button type="button" class="icon-btn" id="mg-close" title="close">x</button></div>
+          <div class="mono tiny muted" id="mg-code"></div>
+          <div class="mg-sec">SEVERITY <span class="muted">1 = mild, 10 = worst</span></div>
+          <div id="mg-sev" class="row wrap mg-scale"></div>
+          <div class="mg-sec">WHERE <span class="muted">tap all that apply</span></div>
+          <div id="mg-loc" class="row wrap"></div>
+          <div class="mg-sec" id="mg-when-sec">STARTED</div>
+          <div id="mg-when" class="row wrap"></div>
+          <input type="time" id="mg-time" hidden />
+          <div class="mg-sec">ALSO <span class="muted">optional</span></div>
+          <div id="mg-sym" class="row wrap"></div>
+          <input id="mg-meds" placeholder="> took anything? (optional)" autocomplete="off" />
+          <div class="row end"><button type="button" class="chip green-line" id="mg-end" hidden>IT'S OVER</button><button class="chip solid" id="mg-save">LOG IT</button></div>
+        </form>
+      </div>
+
+      <div id="quiz" class="overlay" hidden>
+        <div class="card-sheet mono">
+          <div class="row between"><span class="eva big" id="quiz-title">POP QUIZ</span><span class="tiny muted" id="quiz-prog"></span></div>
+          <div class="mono tiny muted" id="quiz-code"></div>
+          <div id="quiz-q"></div>
+          <div id="quiz-choices"></div>
+          <form id="quiz-form" class="row" hidden><input id="quiz-input" autocomplete="off" placeholder="> your answer" /><button class="chip solid">ANSWER</button></form>
+          <div id="quiz-why" class="tiny" hidden></div>
+          <div class="row end"><button type="button" class="chip" id="quiz-quit">STOP</button><button type="button" class="chip solid" id="quiz-next" hidden>NEXT</button></div>
+        </div>
+      </div>
+
+      <div id="card-overlay" class="overlay" hidden>
+        <div class="card-sheet">
+          <div class="eva big" id="card-title"></div>
+          <div class="mono tiny muted" id="card-code"></div>
+          <div id="card-body" class="mono"></div>
+          <div class="row end"><button class="chip solid" id="card-ok">OKAY</button></div>
+        </div>
+      </div>
+
+      <div id="cutscene" class="overlay" hidden>
+        <div class="letterbox"></div>
+        <div id="cs-log" class="mono" hidden></div>
+        <div id="cs-text" class="mono"></div>
+        <form id="cs-form" class="row center" hidden>
+          <input id="cs-name" class="mono" maxlength="16" autocomplete="off" />
+          <button class="chip solid">CONFIRM</button>
+        </form>
+        <form id="cs-times" class="mono" hidden>
+          <label>WAKE <input type="time" name="wake" value="08:00" required /></label>
+          <label>BED <input type="time" name="bed" value="23:30" required /></label>
+          <button class="chip solid">CONFIRM</button>
+        </form>
+        <button class="chip" id="cs-next" hidden>&gt;</button>
+        <button class="link mono tiny" id="cs-skip" hidden>skip intro</button>
+        <div class="letterbox bottom"></div>
+      </div>
+    </section>
+
+    <section id="kei-zone">
+      <div id="speech" class="hit mono"><span class="who"></span><span class="text"></span></div>
+      <div id="notes" aria-hidden="true"><i>♪</i><i>♫</i><i>♪</i></div>
+      <div id="body-wrap">
+        <div id="body" class="figure-full"></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="fx-layer"></div>
+
+  <script src="config.js?v=murz3wro"></script>
+  <script src="phone-host.js?v=murz3wro"></script>
+  <script src="lines.js?v=murz3wro"></script>
+  <script src="sync.js?v=murz3wro"></script>
+  <script src="lore.js?v=murz3wro"></script>
+  <script src="lore-engine.js?v=murz3wro"></script>
+  <script src="external.js?v=murz3wro"></script>
+  <script src="sprite.js?v=murz3wro"></script>
+  <script src="items.js?v=murz3wro"></script>
+  <script src="planner.js?v=murz3wro"></script>
+  <script src="coach.js?v=murz3wro"></script>
+  <script src="memory.js?v=murz3wro"></script>
+  <script src="memui.js?v=murz3wro"></script>
+  <script src="study.js?v=murz3wro"></script>
+  <script src="checkin.js?v=murz3wro"></script>
+  <script src="health.js?v=murz3wro"></script>
+  <script src="glance.js?v=murz3wro"></script>
+  <script src="music.js?v=murz3wro"></script>
+  <script src="life.js?v=murz3wro"></script>
+  <script src="app.js?v=murz3wro"></script>
+</body>
+</html>
